@@ -1,0 +1,17 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+export type RegistrationVO = {
+    id?: number;
+    workDate?: string;
+    shiftType?: number;
+    status?: number;
+    diagnosis?: string;
+    doctorName?: string;
+    deptName?: string;
+    price?: number;
+    patientName?: string;
+    patientPhone?: string;
+};
+
