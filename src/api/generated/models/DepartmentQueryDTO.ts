@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserQueryDTO = {
+export type DepartmentQueryDTO = {
     pageNum?: number;
     pageSize?: number;
-    username?: string;
-    nickname?: string;
-    status?: number;
+    deptName?: string;
 };
 
