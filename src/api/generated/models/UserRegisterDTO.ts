@@ -9,11 +9,11 @@ export type UserRegisterDTO = {
     /**
      * 用户名
      */
-    username: string;
+    userName: string;
     /**
      * 密码
      */
-    password: string;
+    passWord: string;
     /**
      * 确认密码
      */
@@ -21,6 +21,6 @@ export type UserRegisterDTO = {
     /**
      * 昵称
      */
-    nickname?: string;
+    nickName?: string;
 };
 

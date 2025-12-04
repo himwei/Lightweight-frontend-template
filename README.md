@@ -19,6 +19,7 @@
 *   **路由**: Vue Router 4
 *   **API**: openapi-typescript-codegen (核心黑科技)
 *   **CSS**: Sass (SCSS)
+*   **NODEJS**: >= 20.19 OR 22
 
 ---
 

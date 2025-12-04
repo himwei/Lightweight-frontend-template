@@ -9,5 +9,7 @@ export type TDepartment = {
     location?: string;
     intro?: string;
     createTime?: string;
+    isDeleted?: number;
+    updateTime?: string;
 };
 

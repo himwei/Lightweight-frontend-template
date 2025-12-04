@@ -13,5 +13,6 @@ export type RegistrationVO = {
     price?: number;
     patientName?: string;
     patientPhone?: string;
+    createTime?: string;
 };
 

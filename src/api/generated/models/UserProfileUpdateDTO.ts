@@ -2,12 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type LoginVO = {
-    id?: number;
-    userName?: string;
+export type UserProfileUpdateDTO = {
     nickName?: string;
+    phone?: string;
+    email?: string;
     avatar?: string;
-    token?: string;
-    roles?: Array<string>;
 };
 

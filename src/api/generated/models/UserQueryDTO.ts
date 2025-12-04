@@ -5,8 +5,9 @@
 export type UserQueryDTO = {
     pageNum?: number;
     pageSize?: number;
-    username?: string;
-    nickname?: string;
+    userName?: string;
+    nickName?: string;
     status?: number;
+    keyword?: string;
 };
 

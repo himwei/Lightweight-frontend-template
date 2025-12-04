@@ -2,14 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type DoctorVO = {
+export type DepartmentUpdateDTO = {
     id?: number;
-    doctorName?: string;
     deptName?: string;
-    avatar?: string;
-    title?: string;
-    price?: number;
+    deptCode?: string;
+    location?: string;
     intro?: string;
-    deptId?: number;
 };
 

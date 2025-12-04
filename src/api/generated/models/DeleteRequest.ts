@@ -2,12 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type LoginVO = {
+export type DeleteRequest = {
     id?: number;
-    userName?: string;
-    nickName?: string;
-    avatar?: string;
-    token?: string;
-    roles?: Array<string>;
 };
 

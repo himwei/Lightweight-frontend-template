@@ -2,12 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserUpdateDTO = {
+export type UserResetPwdDTO = {
     id: number;
-    nickName?: string;
-    email?: string;
-    phone?: string;
-    status?: number;
-    roleIds?: Array<number>;
 };
 
