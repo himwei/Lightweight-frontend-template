@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserAddDTO = {
-    username: string;
-    password: string;
-    nickname?: string;
+    userName: string;
+    passWord: string;
+    nickName?: string;
     email?: string;
     phone?: string;
     status?: number;

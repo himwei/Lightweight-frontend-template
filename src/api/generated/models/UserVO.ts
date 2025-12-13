@@ -4,8 +4,8 @@
 /* eslint-disable */
 export type UserVO = {
     id?: number;
-    username?: string;
-    nickname?: string;
+    userName?: string;
+    nickName?: string;
     avatar?: string;
     email?: string;
     phone?: string;
