@@ -29,6 +29,10 @@
             <el-menu-item index="/admin/doctor">
               <el-icon><UserFilled /></el-icon><span>医生排班</span>
             </el-menu-item>
+            <!-- 🔥 新增菜单项 -->
+            <el-menu-item index="/admin/registration">
+              <el-icon><Tickets /></el-icon><span>就诊管理</span>
+            </el-menu-item>
             <el-menu-item index="/user">
               <el-icon><User /></el-icon><span>用户账号</span>
             </el-menu-item>

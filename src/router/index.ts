@@ -42,6 +42,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/admin/DoctorList.vue'),
                 meta: { title: '医生排班', role: RoleEnum.ADMIN }
             },
+            // 🔥 新增：就诊管理
+            {
+                path: 'admin/registration',
+                name: 'admin-registration',
+                component: () => import('../views/admin/RegistrationList.vue'),
+                meta: { title: '就诊管理', role: RoleEnum.ADMIN }
+            },
 
             // --- 医生模块 ---
             {

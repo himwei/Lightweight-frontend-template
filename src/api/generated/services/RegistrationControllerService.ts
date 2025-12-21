@@ -8,6 +8,7 @@ import type { BaseResponseLong } from '../models/BaseResponseLong';
 import type { CancelRegistrationRequest } from '../models/CancelRegistrationRequest';
 import type { DiagnosisRequest } from '../models/DiagnosisRequest';
 import type { PageDTO } from '../models/PageDTO';
+import type { RegistrationQueryDTO } from '../models/RegistrationQueryDTO';
 import type { RegSubmitRequest } from '../models/RegSubmitRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -73,6 +74,38 @@ export class RegistrationControllerService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/reg/cancel',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * 管理员分页查询挂号记录
+     * @param requestBody
+     * @returns BaseResponseIPageRegistrationVO OK
+     * @throws ApiError
+     */
+    public static pageRegistrationsByAdmin(
+        requestBody: RegistrationQueryDTO,
+    ): CancelablePromise<BaseResponseIPageRegistrationVO> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/reg/admin/page',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * 管理员强制取消挂号
+     * @param requestBody
+     * @returns BaseResponseBoolean OK
+     * @throws ApiError
+     */
+    public static cancelByAdmin(
+        requestBody: CancelRegistrationRequest,
+    ): CancelablePromise<BaseResponseBoolean> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/reg/admin/cancel',
             body: requestBody,
             mediaType: 'application/json',
         });

@@ -5,9 +5,9 @@
 import type { RegistrationVO } from './RegistrationVO';
 export type IPageRegistrationVO = {
     size?: number;
-    total?: number;
     records?: Array<RegistrationVO>;
     current?: number;
+    total?: number;
     pages?: number;
 };
 

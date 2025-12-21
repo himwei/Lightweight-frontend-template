@@ -38,6 +38,7 @@ export type { IPageUserVO } from './models/IPageUserVO';
 export type { LoginDTO } from './models/LoginDTO';
 export type { LoginVO } from './models/LoginVO';
 export type { PageDTO } from './models/PageDTO';
+export type { RegistrationQueryDTO } from './models/RegistrationQueryDTO';
 export type { RegistrationVO } from './models/RegistrationVO';
 export type { RegSubmitRequest } from './models/RegSubmitRequest';
 export type { ScheduleAddDTO } from './models/ScheduleAddDTO';
