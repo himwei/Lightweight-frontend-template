@@ -10,5 +10,6 @@ export type RegistrationQueryDTO = {
     status?: number;
     startDate?: string;
     endDate?: string;
+    deptId?: number;
 };
 

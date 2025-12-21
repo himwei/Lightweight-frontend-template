@@ -63,6 +63,12 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/doctor/MySchedule.vue'),
                 meta: { title: '我的排班', role: RoleEnum.DOCTOR }
             },
+            {
+                path: 'doctor/comments',
+                name: 'doctor-comments',
+                component: () => import('../views/doctor/MyComments.vue'),
+                meta: { title: '患者评价', role: RoleEnum.DOCTOR }
+            },
 
             // --- 患者模块 ---
             {

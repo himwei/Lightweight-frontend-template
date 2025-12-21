@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CommentVO } from './CommentVO';
 export type RegistrationVO = {
     id?: number;
     workDate?: string;
@@ -14,5 +15,6 @@ export type RegistrationVO = {
     patientName?: string;
     patientPhone?: string;
     createTime?: string;
+    comment?: CommentVO;
 };
 

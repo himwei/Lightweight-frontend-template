@@ -2,11 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DoctorVO } from './DoctorVO';
-export type IPageDoctorVO = {
+import type { CommentVO } from './CommentVO';
+export type IPageCommentVO = {
     size?: number;
     total?: number;
-    records?: Array<DoctorVO>;
+    records?: Array<CommentVO>;
     pages?: number;
     current?: number;
 };

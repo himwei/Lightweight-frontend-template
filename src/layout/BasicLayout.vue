@@ -45,6 +45,9 @@
             <el-menu-item index="/doctor/patients">
               <el-icon><List /></el-icon><span>我的接诊</span>
             </el-menu-item>
+            <el-menu-item index="/doctor/comments">
+              <el-icon><ChatLineRound /></el-icon><span>评价反馈</span>
+            </el-menu-item>
           </el-menu-item-group>
         </template>
 
@@ -167,7 +170,7 @@ import { useUserStore } from '@/stores/user'
 import { UserControllerService } from '@/api/generated'
 import { ElMessage, ElMessageBox , type FormInstance } from 'element-plus'
 import {
-  Odometer, User, OfficeBuilding, UserFilled, List, Plus, Tickets, FirstAidKit, Calendar, CaretBottom
+  Odometer, User, OfficeBuilding, UserFilled, List, Plus, Tickets, FirstAidKit, Calendar, CaretBottom, ChatLineRound
 } from '@element-plus/icons-vue'
 import { RoleEnum } from "@/constants/RoleConstant.ts"
 
