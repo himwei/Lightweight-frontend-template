@@ -2,12 +2,13 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import App from './App.vue'
 import router from './router'
 import { initApiConfig } from '@/api/config.ts'
-import { setupRouterGuard } from '@/router/guard' // <--- 引入
+import { setupRouterGuard } from '@/router/guard'
 
 // 1. 初始化 API
 initApiConfig()
@@ -23,6 +24,11 @@ app.use(router)
 
 // 4. ★★★ 初始化路由守卫 ★★★
 setupRouterGuard(router)
+
+// 全局国际化
+app.use(ElementPlus, {
+    locale: zhCn,
+})
 
 // 5. UI 组件
 app.use(ElementPlus)

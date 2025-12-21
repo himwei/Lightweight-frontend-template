@@ -7,7 +7,7 @@ export type IPageUserVO = {
     size?: number;
     records?: Array<UserVO>;
     current?: number;
-    total?: number;
     pages?: number;
+    total?: number;
 };
 

@@ -7,7 +7,7 @@ export type IPageScheduleVO = {
     size?: number;
     records?: Array<ScheduleVO>;
     current?: number;
-    total?: number;
     pages?: number;
+    total?: number;
 };
 

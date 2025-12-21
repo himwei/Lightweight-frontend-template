@@ -7,7 +7,7 @@ export type IPageDoctorVO = {
     size?: number;
     records?: Array<DoctorVO>;
     current?: number;
-    total?: number;
     pages?: number;
+    total?: number;
 };
 

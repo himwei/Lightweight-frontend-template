@@ -7,7 +7,7 @@ export type IPageTDepartment = {
     size?: number;
     records?: Array<TDepartment>;
     current?: number;
-    total?: number;
     pages?: number;
+    total?: number;
 };
 

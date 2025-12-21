@@ -35,6 +35,37 @@
             <el-option label="已取消" :value="2" />
           </el-select>
         </el-form-item>
+        <!-- 1. 🔍 新增：科室下拉框 -->
+        <el-form-item label="所属科室">
+          <el-select
+              v-model="query.deptId"
+              placeholder="全部科室"
+              clearable
+              filterable
+              style="width: 140px"
+              @change="loadData"
+          >
+            <!-- 循环渲染科室选项 -->
+            <el-option
+                v-for="dept in deptOptions"
+                :key="dept.id"
+                :label="dept.deptName"
+                :value="dept.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="就诊日期">
+          <el-date-picker
+              v-model="dateRange"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              value-format="YYYY-MM-DD"
+              style="width: 240px"
+              @change="handleDateChange"
+          />
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="loadData">查询</el-button>
           <el-button @click="resetQuery">重置</el-button>
@@ -125,14 +156,23 @@ import { Iphone } from '@element-plus/icons-vue'
 import {
   RegistrationControllerService,
   type RegistrationVO,
-  type RegistrationQueryDTO // ✅ 引入新生成的 DTO
+  type RegistrationQueryDTO,
+  DepartmentControllerService,
+  type TDepartment
 } from '@/api/generated'
 import { formatDate, formatDateTime } from '@/utils/dateUtil'
 import { ElMessage } from 'element-plus'
 
+
 const loading = ref(false)
 const tableData = ref<RegistrationVO[]>([])
 const total = ref(0)
+
+//  🌳 定义科室列表数据源
+const deptOptions = ref<TDepartment[]>([])
+
+// 定义一个变量专门绑定日期组件 (数组)
+const dateRange = ref<[string, string] | null>(null)
 
 // ✅ 使用强类型 RegistrationQueryDTO
 const query = reactive<RegistrationQueryDTO>({
@@ -140,8 +180,36 @@ const query = reactive<RegistrationQueryDTO>({
   pageSize: 10,
   patientName: '',
   doctorName: '',
-  status: undefined
+  status: undefined,
+  startDate: undefined,
+  endDate: undefined,
+  deptId: undefined
 })
+// 当用户清空日期时，val 会变成 null
+const handleDateChange = (val: [string, string] | null) => {
+  if (val) {
+    query.startDate = val[0]
+    query.endDate = val[1]
+  } else {
+    query.startDate = undefined
+    query.endDate = undefined
+  }
+  // 选完日期自动触发查询 (可选)
+  loadData()
+}
+
+// 加载科室列表的方法
+const loadDeptOptions = async () => {
+  try {
+    // 查全部科室，pageSize 给大一点
+    const res = await DepartmentControllerService.getDepartmentList({ pageNum: 1, pageSize: 100 })
+    if (res.code === 0) {
+      deptOptions.value = res.data?.records || []
+    }
+  } catch (e) {
+    console.error('加载科室失败', e)
+  }
+}
 
 // 状态字典
 const getStatusType = (status: number) => {
@@ -173,6 +241,11 @@ const resetQuery = () => {
   query.patientName = ''
   query.doctorName = ''
   query.status = undefined
+  // 清空日期
+  dateRange.value = null
+  query.startDate = undefined
+  query.endDate = undefined
+  query.deptId =  undefined
   // 重置后重新查询
   loadData()
 }
@@ -196,5 +269,6 @@ const handleCancel = async (row: RegistrationVO) => {
 
 onMounted(() => {
   loadData()
+  loadDeptOptions() // ✅ 页面加载时获取科室列表
 })
 </script>

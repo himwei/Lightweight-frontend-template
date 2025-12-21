@@ -8,5 +8,7 @@ export type RegistrationQueryDTO = {
     patientName?: string;
     doctorName?: string;
     status?: number;
+    startDate?: string;
+    endDate?: string;
 };
 
