@@ -161,7 +161,7 @@ import { ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { UserControllerService } from '@/api/generated'
-import { ElMessage, type FormInstance } from 'element-plus'
+import { ElMessage, ElMessageBox , type FormInstance } from 'element-plus'
 import {
   Odometer, User, OfficeBuilding, UserFilled, List, Plus, Tickets, FirstAidKit, Calendar, CaretBottom
 } from '@element-plus/icons-vue'
@@ -208,8 +208,21 @@ const handleCommand = (cmd: string) => {
 }
 
 const handleLogout = async () => {
-  await userStore.logout()
-  await router.push('/login')
+  ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    type: 'warning',
+  })
+      .then(async () => {
+        // 用户点击了“确认”
+        await userStore.logout()
+        ElMessage.success('已安全退出')
+        // 跳转回登录页
+        await router.push('/login')
+      })
+      .catch(() => {
+        // 用户点击了“取消”，不做任何操作
+      })
 }
 
 // 打开个人中心并回显数据
