@@ -5,9 +5,9 @@
 import type { ScheduleVO } from './ScheduleVO';
 export type IPageScheduleVO = {
     size?: number;
-    total?: number;
     records?: Array<ScheduleVO>;
-    pages?: number;
     current?: number;
+    total?: number;
+    pages?: number;
 };
 

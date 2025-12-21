@@ -5,9 +5,9 @@
 import type { CommentVO } from './CommentVO';
 export type IPageCommentVO = {
     size?: number;
-    total?: number;
     records?: Array<CommentVO>;
-    pages?: number;
     current?: number;
+    total?: number;
+    pages?: number;
 };
 

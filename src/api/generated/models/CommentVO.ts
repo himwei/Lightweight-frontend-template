@@ -8,5 +8,9 @@ export type CommentVO = {
     content?: string;
     patientName?: string;
     createTime?: string;
+    regId?: number;
+    workDate?: string;
+    shiftType?: number;
+    diagnosis?: string;
 };
 

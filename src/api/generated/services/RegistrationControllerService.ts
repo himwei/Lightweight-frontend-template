@@ -7,7 +7,6 @@ import type { BaseResponseIPageRegistrationVO } from '../models/BaseResponseIPag
 import type { BaseResponseLong } from '../models/BaseResponseLong';
 import type { CancelRegistrationRequest } from '../models/CancelRegistrationRequest';
 import type { DiagnosisRequest } from '../models/DiagnosisRequest';
-import type { PageDTO } from '../models/PageDTO';
 import type { RegistrationQueryDTO } from '../models/RegistrationQueryDTO';
 import type { RegSubmitRequest } from '../models/RegSubmitRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -31,13 +30,13 @@ export class RegistrationControllerService {
         });
     }
     /**
-     * 查询挂号记录 (智能判断角色)
+     * 查询挂号记录 (智能判断角色+多条件筛选)
      * @param requestBody
      * @returns BaseResponseIPageRegistrationVO OK
      * @throws ApiError
      */
     public static getMyRegistrations(
-        requestBody: PageDTO,
+        requestBody: RegistrationQueryDTO,
     ): CancelablePromise<BaseResponseIPageRegistrationVO> {
         return __request(OpenAPI, {
             method: 'POST',

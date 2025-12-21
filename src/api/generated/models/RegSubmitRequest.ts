@@ -4,5 +4,6 @@
 /* eslint-disable */
 export type RegSubmitRequest = {
     scheduleId?: number;
+    patientComplaint?: string;
 };
 

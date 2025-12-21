@@ -15,6 +15,12 @@
           </template>
         </el-table-column>
 
+        <el-table-column prop="patientComplaint" label="病情自述" min-width="150" show-overflow-tooltip>
+          <template #default="{ row }">
+            <span style="color: #606266;">{{ row.patientComplaint || '（未填写）' }}</span>
+          </template>
+        </el-table-column>
+
         <el-table-column label="费用" width="100">
           <template #default="{ row }">￥{{ row.price }}</template>
         </el-table-column>

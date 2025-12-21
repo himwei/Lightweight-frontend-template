@@ -9,6 +9,7 @@ export type RegistrationVO = {
     shiftType?: number;
     status?: number;
     diagnosis?: string;
+    patientComplaint?: string;
     doctorName?: string;
     deptName?: string;
     price?: number;

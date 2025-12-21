@@ -8,9 +8,8 @@
     <el-alert title="请选择合适的就诊时段" type="info" show-icon :closable="false" class="mb-20"/>
 
     <el-table :data="scheduleList" v-loading="loading" border stripe>
-      <el-table-column prop="workDate" label="就诊日期" width="120" sortable>
+      <el-table-column prop="workDate" label="就诊日期" width="120">
         <template #default="{ row }">
-          <!-- 这里的 row.workDate 就是那个很长的时间字符串 -->
           {{ formatDate(row.workDate) }}
         </template>
       </el-table-column>
@@ -43,20 +42,36 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- ✅ 移动到表格下方，作为表单输入 -->
+    <div style="margin-top: 20px; padding: 0 10px;">
+      <div style="margin-bottom: 8px; font-weight: bold; color: #606266;">病情自述 (选填):</div>
+      <el-input
+          v-model="complaint"
+          type="textarea"
+          :rows="3"
+          placeholder="请简单描述您的症状，方便医生提前了解情况..."
+          maxlength="500"
+          show-word-limit
+      />
+    </div>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch } from 'vue' // ✅ 确保引入了 ref
 import { ScheduleControllerService, RegistrationControllerService, type ScheduleVO } from '@/api/generated'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import {formatDate} from "@/utils/dateUtil.ts";
+import { formatDate } from "@/utils/dateUtil.ts"
 
 const props = defineProps<{ modelValue: boolean, doctorId: number, doctorName: string }>()
 const emit = defineEmits(['update:modelValue', 'success'])
 
 const loading = ref(false)
 const scheduleList = ref<ScheduleVO[]>([])
+
+// ✅ 1. 定义自述变量 (刚才漏掉了这个定义)
+const complaint = ref('')
 
 // 加载该医生的可用排班
 const loadSchedules = async () => {
@@ -81,22 +96,32 @@ const handleBooking = (row: ScheduleVO) => {
       { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }
   ).then(async () => {
     try {
-      const res = await RegistrationControllerService.submitRegistration({ scheduleId: row.id })
+      // ✅ 2. 这里的 complaint.value 现在有效了
+      const res = await RegistrationControllerService.submitRegistration({
+        scheduleId: row.id,
+        patientComplaint: complaint.value
+      })
       if (res.code === 0) {
         ElMessage.success('预约成功！请准时就诊')
         emit('success')
-        emit('update:modelValue', false) // 关闭弹窗
+        emit('update:modelValue', false)
       } else {
         ElMessage.error(res.message || '预约失败')
       }
     } catch (e) {
+      console.error("Booking Error:", e) // 打印错误日志方便调试
       ElMessage.error('系统错误')
     }
   })
 }
 
+// 监听弹窗打开
 watch(() => props.modelValue, (val) => {
-  if (val) loadSchedules()
+  if (val) {
+    loadSchedules()
+    // ✅ 3. 每次打开弹窗时重置自述内容
+    complaint.value = ''
+  }
 })
 </script>
 
