@@ -6,8 +6,8 @@ import type { TDepartment } from './TDepartment';
 export type IPageTDepartment = {
     size?: number;
     records?: Array<TDepartment>;
+    pages?: number;
     current?: number;
     total?: number;
-    pages?: number;
 };
 

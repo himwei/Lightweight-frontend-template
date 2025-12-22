@@ -60,6 +60,9 @@
             <el-menu-item index="/patient/record">
               <el-icon><Tickets /></el-icon><span>挂号记录</span>
             </el-menu-item>
+            <el-menu-item index="/patient/ai">
+              <el-icon><MagicStick /></el-icon><span>AI 智能导诊</span>
+            </el-menu-item>
           </el-menu-item-group>
         </template>
       </el-menu>
@@ -170,7 +173,18 @@ import { useUserStore } from '@/stores/user'
 import { UserControllerService } from '@/api/generated'
 import { ElMessage, ElMessageBox , type FormInstance } from 'element-plus'
 import {
-  Odometer, User, OfficeBuilding, UserFilled, List, Plus, Tickets, FirstAidKit, Calendar, CaretBottom, ChatLineRound
+  Odometer,
+  User,
+  OfficeBuilding,
+  UserFilled,
+  List,
+  Plus,
+  Tickets,
+  FirstAidKit,
+  Calendar,
+  CaretBottom,
+  ChatLineRound,
+  MagicStick
 } from '@element-plus/icons-vue'
 import { RoleEnum } from "@/constants/RoleConstant.ts"
 

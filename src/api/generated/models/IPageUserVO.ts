@@ -6,8 +6,8 @@ import type { UserVO } from './UserVO';
 export type IPageUserVO = {
     size?: number;
     records?: Array<UserVO>;
+    pages?: number;
     current?: number;
     total?: number;
-    pages?: number;
 };
 

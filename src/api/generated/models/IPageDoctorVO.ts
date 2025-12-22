@@ -6,8 +6,8 @@ import type { DoctorVO } from './DoctorVO';
 export type IPageDoctorVO = {
     size?: number;
     records?: Array<DoctorVO>;
+    pages?: number;
     current?: number;
     total?: number;
-    pages?: number;
 };
 

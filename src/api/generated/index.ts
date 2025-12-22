@@ -60,6 +60,7 @@ export type { UserResetPwdDTO } from './models/UserResetPwdDTO';
 export type { UserUpdateDTO } from './models/UserUpdateDTO';
 export type { UserVO } from './models/UserVO';
 
+export { AiControllerService } from './services/AiControllerService';
 export { CommentControllerService } from './services/CommentControllerService';
 export { DepartmentControllerService } from './services/DepartmentControllerService';
 export { DoctorControllerService } from './services/DoctorControllerService';

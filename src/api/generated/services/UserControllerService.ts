@@ -136,19 +136,13 @@ export class UserControllerService {
         });
     }
     /**
-     * @param id
      * @returns BaseResponseBoolean OK
      * @throws ApiError
      */
-    public static deleteUser(
-        id: number,
-    ): CancelablePromise<BaseResponseBoolean> {
+    public static deleteUser(): CancelablePromise<BaseResponseBoolean> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/delete/{id}',
-            path: {
-                'id': id,
-            },
         });
     }
     /**
@@ -167,19 +161,13 @@ export class UserControllerService {
         });
     }
     /**
-     * @param id
      * @returns BaseResponseUserVO OK
      * @throws ApiError
      */
-    public static getUserDetail(
-        id: number,
-    ): CancelablePromise<BaseResponseUserVO> {
+    public static getUserDetail(): CancelablePromise<BaseResponseUserVO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/detail/{id}',
-            path: {
-                'id': id,
-            },
         });
     }
     /**

@@ -82,6 +82,12 @@ const routes: RouteRecordRaw[] = [
                 name: 'patient-record',
                 component: () => import('../views/patient/MyRecord.vue'),
                 meta: { title: '挂号记录', role: RoleEnum.PATIENT }
+            },
+            {
+                path: 'patient/ai',
+                name: 'patient-ai',
+                component: () => import('../views/patient/AiAssistant.vue'),
+                meta: { title: 'AI 智能导诊', role: RoleEnum.PATIENT } // 仅患者可见
             }
         ]
     },
