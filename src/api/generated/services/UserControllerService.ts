@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BaseResponseBoolean } from '../models/BaseResponseBoolean';
 import type { BaseResponseIPageUserVO } from '../models/BaseResponseIPageUserVO';
 import type { BaseResponseLoginVO } from '../models/BaseResponseLoginVO';
 import type { BaseResponseLong } from '../models/BaseResponseLong';
@@ -9,8 +10,11 @@ import type { BaseResponseUserVO } from '../models/BaseResponseUserVO';
 import type { BaseResponseVoid } from '../models/BaseResponseVoid';
 import type { LoginDTO } from '../models/LoginDTO';
 import type { UserAddDTO } from '../models/UserAddDTO';
+import type { UserProfileUpdateDTO } from '../models/UserProfileUpdateDTO';
+import type { UserPwdUpdateDTO } from '../models/UserPwdUpdateDTO';
 import type { UserQueryDTO } from '../models/UserQueryDTO';
 import type { UserRegisterDTO } from '../models/UserRegisterDTO';
+import type { UserResetPwdDTO } from '../models/UserResetPwdDTO';
 import type { UserUpdateDTO } from '../models/UserUpdateDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -18,15 +22,60 @@ import { request as __request } from '../core/request';
 export class UserControllerService {
     /**
      * @param requestBody
-     * @returns BaseResponseVoid OK
+     * @returns BaseResponseBoolean OK
      * @throws ApiError
      */
     public static updateUser(
         requestBody: UserUpdateDTO,
-    ): CancelablePromise<BaseResponseVoid> {
+    ): CancelablePromise<BaseResponseBoolean> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/update',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns BaseResponseBoolean OK
+     * @throws ApiError
+     */
+    public static updatePwd(
+        requestBody: UserPwdUpdateDTO,
+    ): CancelablePromise<BaseResponseBoolean> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/update/pwd',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns BaseResponseBoolean OK
+     * @throws ApiError
+     */
+    public static updateProfile(
+        requestBody: UserProfileUpdateDTO,
+    ): CancelablePromise<BaseResponseBoolean> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/update/profile',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns BaseResponseBoolean OK
+     * @throws ApiError
+     */
+    public static resetPwd(
+        requestBody: UserResetPwdDTO,
+    ): CancelablePromise<BaseResponseBoolean> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/resetPwd',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -42,6 +91,21 @@ export class UserControllerService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/register',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns BaseResponseIPageUserVO OK
+     * @throws ApiError
+     */
+    public static pageUsers(
+        requestBody: UserQueryDTO,
+    ): CancelablePromise<BaseResponseIPageUserVO> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/page',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -72,19 +136,13 @@ export class UserControllerService {
         });
     }
     /**
-     * @param id
-     * @returns BaseResponseVoid OK
+     * @returns BaseResponseBoolean OK
      * @throws ApiError
      */
-    public static deleteUser(
-        id: number,
-    ): CancelablePromise<BaseResponseVoid> {
+    public static deleteUser(): CancelablePromise<BaseResponseBoolean> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/delete/{id}',
-            path: {
-                'id': id,
-            },
         });
     }
     /**
@@ -103,35 +161,13 @@ export class UserControllerService {
         });
     }
     /**
-     * @param queryDto
-     * @returns BaseResponseIPageUserVO OK
-     * @throws ApiError
-     */
-    public static pageUsers(
-        queryDto: UserQueryDTO,
-    ): CancelablePromise<BaseResponseIPageUserVO> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user/page',
-            query: {
-                'queryDTO': queryDto,
-            },
-        });
-    }
-    /**
-     * @param id
      * @returns BaseResponseUserVO OK
      * @throws ApiError
      */
-    public static getUserDetail(
-        id: number,
-    ): CancelablePromise<BaseResponseUserVO> {
+    public static getUserDetail(): CancelablePromise<BaseResponseUserVO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/detail/{id}',
-            path: {
-                'id': id,
-            },
         });
     }
     /**

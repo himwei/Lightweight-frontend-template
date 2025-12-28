@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type UserUpdateDTO = {
     id: number;
-    nickname?: string;
+    nickName?: string;
     email?: string;
     phone?: string;
     status?: number;

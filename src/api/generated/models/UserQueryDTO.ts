@@ -3,10 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserQueryDTO = {
-    username?: string;
-    nickname?: string;
-    status?: number;
     pageNum?: number;
     pageSize?: number;
+    userName?: string;
+    nickName?: string;
+    status?: number;
+    keyword?: string;
 };
 

@@ -4,8 +4,8 @@
 /* eslint-disable */
 export type LoginVO = {
     id?: number;
-    username?: string;
-    nickname?: string;
+    userName?: string;
+    nickName?: string;
     avatar?: string;
     token?: string;
     roles?: Array<string>;
