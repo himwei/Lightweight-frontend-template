@@ -58,11 +58,11 @@
 
         <el-table-column label="操作" width="220" fixed="right" align="center">
           <template #default="{ row }">
-            <el-button link type="primary" size="small" @click="handleEdit(row)">编辑</el-button>
-            <el-button link type="warning" size="small" @click="handleResetPwd(row)">重置密码</el-button>
+            <el-button link type="primary" size="small" :disabled="row.id === userStore.userInfo?.id" @click="handleEdit(row)">编辑</el-button>
+            <el-button link type="warning" size="small" :disabled="row.id === userStore.userInfo?.id" @click="handleResetPwd(row)">重置密码</el-button>
             <el-popconfirm title="确认删除该用户？无法恢复！" @confirm="handleDelete(row)">
               <template #reference>
-                <el-button link type="danger" size="small">删除</el-button>
+                <el-button link type="danger" size="small" :disabled="row.id === userStore.userInfo?.id">删除</el-button>
               </template>
             </el-popconfirm>
           </template>
@@ -111,6 +111,17 @@
           <el-input v-model="formData.email" />
         </el-form-item>
 
+        <el-form-item label="角色" prop="roleIds">
+          <el-select v-model="formData.roleIds" placeholder="请选择角色">
+            <el-option
+                v-for="role in roleList"
+                :key="role.id"
+                :label="role.roleName"
+                :value="role.id!"
+            />
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="状态" prop="status" v-if="isEdit">
           <el-radio-group v-model="formData.status">
             <el-radio :label="1">正常</el-radio>
@@ -128,14 +139,17 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, nextTick } from 'vue'
-import { UserControllerService, type UserVO, type UserQueryDTO } from '@/api/generated'
+import { UserControllerService, RoleControllerService, type UserVO, type UserQueryDTO, type SysRole } from '@/api/generated'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { formatDateTime } from "@/utils/dateUtil.ts"
+import { useUserStore } from '@/stores/user'
 
 const loading = ref(false)
 const tableData = ref<UserVO[]>([])
 const total = ref(0)
 const query = reactive({ pageNum: 1, pageSize: 10, keyword: '' })
+const roleList = ref<SysRole[]>([])
+const userStore = useUserStore()
 
 // 弹窗相关
 const dialogVisible = ref(false)
@@ -150,13 +164,15 @@ const formData = reactive({
   passWord: '',
   phone: '',
   email: '',
-  status: 1
+  status: 1,
+  roleIds: undefined as number | undefined
 })
 
 const rules = {
   userName: [{ required: true, message: '必填', trigger: 'blur' }],
   nickName: [{ required: true, message: '必填', trigger: 'blur' }],
-  passWord: [{ required: true, message: '必填', trigger: 'blur' }]
+  passWord: [{ required: true, message: '必填', trigger: 'blur' }],
+  roleIds: [{ required: true, message: '请选择角色', trigger: 'change' }]
 }
 
 // 加载数据
@@ -171,6 +187,16 @@ const loadData = async () => {
   }
 }
 
+// 加载角色列表
+const loadRoles = async () => {
+  try {
+    const res = await RoleControllerService.listRoles()
+    roleList.value = res.data || []
+  } catch (e) {
+    console.error('加载角色列表失败', e)
+  }
+}
+
 // 新增
 const handleAdd = () => {
   isEdit.value = false
@@ -182,9 +208,16 @@ const handleAdd = () => {
 const handleEdit = (row: UserVO) => {
   isEdit.value = true
   resetForm()
-  Object.assign(formData, row)
-  // 密码不回显
-  formData.passWord = ''
+  formData.id = row.id
+  formData.userName = row.userName
+  formData.nickName = row.nickName
+  formData.phone = row.phone || ''
+  formData.email = row.email || ''
+  formData.status = row.status || 1
+  if (row.roleNames && row.roleNames.length > 0) {
+    const matchedRole = roleList.value.find(r => r.roleName === row.roleNames[0])
+    formData.roleIds = matchedRole?.id
+  }
   dialogVisible.value = true
 }
 
@@ -195,11 +228,15 @@ const handleSubmit = async () => {
     if (valid) {
       submitting.value = true
       try {
+        const submitData = {
+          ...formData,
+          roleIds: formData.roleIds ? [formData.roleIds] : undefined
+        }
         if (isEdit.value) {
-          await UserControllerService.updateUser(formData)
+          await UserControllerService.updateUser(submitData)
           ElMessage.success('更新成功')
         } else {
-          await UserControllerService.addUser(formData)
+          await UserControllerService.addUser(submitData)
           ElMessage.success('添加成功')
         }
         dialogVisible.value = false
@@ -224,16 +261,15 @@ const handleDelete = async (row: UserVO) => {
   }
 }
 
-// 重置密码 (模拟)
+// 重置密码
 const handleResetPwd = (row: UserVO) => {
   ElMessageBox.confirm(`确定将用户 [${row.nickName}] 的密码重置为 123456 吗？`, '警告', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
   }).then(async () => {
-    // 这里你需要写个 resetPwd 接口，或者 update 接口传 password
     await UserControllerService.resetPwd({ id: row.id })
-    ElMessage.success('重置成功 (演示)')
+    ElMessage.success('重置成功')
   })
 }
 
@@ -245,8 +281,12 @@ const resetForm = () => {
   formData.phone = ''
   formData.email = ''
   formData.status = 1
+  formData.roleIds = undefined
   nextTick(() => formRef.value?.clearValidate())
 }
 
-onMounted(() => loadData())
+onMounted(() => {
+  loadData()
+  loadRoles()
+})
 </script>
